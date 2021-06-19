@@ -8,8 +8,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', function () {
-    return view('about');
+
+Route::get('/home', function () {
+    echo "This is homepage";
 });
 
-Route::get('/contact', [ContactController:: class, 'index']);
+
+Route::get('/about', function () {
+    return view('about');
+})->middleware('age');
+
+Route::get('/contact', [ContactController::class, 'index']);
