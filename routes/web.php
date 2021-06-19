@@ -19,3 +19,7 @@ Route::get('/about', function () {
 })->middleware('age');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contc');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
