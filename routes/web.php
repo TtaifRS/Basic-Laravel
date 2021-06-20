@@ -28,6 +28,9 @@ Route::get('/category/all', [CategoryController::class, 'AllCat'])->name(('all.c
 
 Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
 
+Route::get("/category/edit/{id}", [CategoryController::class, 'EditCat']);
+
+Route::post("/category/update/{id}", [CategoryController::class, 'UpdateCat']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //eloquent ORM read users
