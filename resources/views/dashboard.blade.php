@@ -28,6 +28,8 @@
                           <td>{{$user-> name}}</td>
                           <td>{{$user->email}}</td>
                           <td>{{$user->created_at->diffForHumans()}}</td>
+                          {{-- Query builder --}}
+                          {{-- <td>{{Carbon\Carbon::parse($user->created_at)->diffForHumans()}}</td> --}}
                         </tr>
                       @endforeach
                     </tbody>
