@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Models\User;
@@ -21,6 +22,9 @@ Route::get('/about', function () {
 })->middleware('age');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contc');
+
+//catagory controller 
+Route::get('/category/all', [CategoryController::class, 'AllCat'])->name(('all.category'));
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //eloquent ORM read users
