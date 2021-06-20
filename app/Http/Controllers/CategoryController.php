@@ -14,7 +14,8 @@ class CategoryController extends Controller
     public function AllCat()
     {
         $categories = Category::latest()->paginate(5);
-        return view('admin.category.index', compact('categories'));
+        $trashCats = Category::onlyTrashed()->latest()->paginate(3);
+        return view('admin.category.index', compact('categories', 'trashCats'));
     }
 
     public function AddCat(Request $request)
@@ -68,5 +69,27 @@ class CategoryController extends Controller
         ]);
 
         return Redirect()->route('all.category')->with('success', 'Category Updated Successfully');
+    }
+
+    public function SoftDeleteCat($id)
+    {
+        $delete = Category::find($id)->delete();
+
+        return Redirect()->back()->with('success', 'Category Removed Successfully');
+    }
+
+
+    public function RestoreCat($id)
+    {
+        $restore = Category::withTrashed()->find($id)->restore();
+
+        return Redirect()->back()->with('success', 'Category Restored Successfully');
+    }
+
+    public function PermanentDeleteCat($id)
+    {
+        $permanentDelete = Category::onlyTrashed()->find($id)->forceDelete();
+
+        return Redirect()->back()->with('success', 'Category Permanently Deleted');
     }
 }

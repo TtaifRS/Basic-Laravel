@@ -45,7 +45,8 @@
                                         <td>
                                             <a href="{{ url('category/edit/' . $category->id) }}"
                                                 class="btn btn-info">Edit</a>
-                                            <a href="" class="btn btn-danger">Delete</a>
+                                            <a href="{{ url('category/softdelete/' . $category->id) }}"
+                                                class="btn btn-danger">Remove</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,6 +77,55 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+
+
+
+        {{-- Trash Part --}}
+        <div class="container mt-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            Trashed Data
+                        </div>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SL No</th>
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($trashCats as $trashCat)
+                                    <tr>
+                                        <th scope="row">{{ $trashCats->firstItem() + $loop->index }}</th>
+                                        <td>{{ $trashCat->category_name }}</td>
+                                        <td>{{ $trashCat->user->name }}</td>
+                                        <td>{{ $trashCat->created_at->diffForHumans() }}</td>
+                                        {{-- Query builder --}}
+                                        {{-- <td>{{Carbon\Carbon::parse($user->created_at)->diffForHumans()}}</td> --}}
+                                        <td>
+                                            <a href="{{ url('category/restore/' . $trashCat->id) }}"
+                                                class="btn btn-warning">Restore</a>
+                                            <a href="{{ url('category/permanentDelete/' . $trashCat->id) }}"
+                                                class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+
+                            </tbody>
+                        </table>
+                        {{ $trashCats->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

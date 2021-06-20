@@ -32,6 +32,12 @@ Route::get("/category/edit/{id}", [CategoryController::class, 'EditCat']);
 
 Route::post("/category/update/{id}", [CategoryController::class, 'UpdateCat']);
 
+Route::get("/category/softdelete/{id}", [CategoryController::class, 'SoftDeleteCat']);
+
+Route::get('/category/restore/{id}', [CategoryController::class, 'RestoreCat']);
+
+Route::get('/category/permanentDelete/{id}', [CategoryController::class, 'PermanentDeleteCat']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //eloquent ORM read users
     $users = User::all();
