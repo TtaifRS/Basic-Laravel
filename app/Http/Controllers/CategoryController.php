@@ -6,7 +6,8 @@ use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
+
 
 class CategoryController extends Controller
 {
@@ -39,6 +40,12 @@ class CategoryController extends Controller
         $categoy->category_name = $request->category_name;
         $categoy->user_id = Auth::user()->id;
         $categoy->save();
+
+        //Insert data with Query builder
+        // $data = array();
+        // $data['category_name'] = $request->category_name;
+        // $data['user_id'] = Auth::user()->id;
+        // DB::table('categories')->insert($data);
 
         return Redirect()->back()->with('success', 'Category Inserted Successfully');
     }
