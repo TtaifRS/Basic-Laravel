@@ -13,7 +13,8 @@ class CategoryController extends Controller
 {
     public function AllCat()
     {
-        return view('admin.category.index');
+        $categories = Category::latest()->get();
+        return view('admin.category.index', compact('categories'));
     }
 
     public function AddCat(Request $request)
@@ -29,17 +30,17 @@ class CategoryController extends Controller
 
         //eloquent ORM insert first way
 
-        // Category::insert([
-        //     'category_name' => $request->category_name,
-        //     'user_id' => Auth::user()->id,
-        //     'created_at' => Carbon::now()
-        // ]);
+        Category::insert([
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
+            'created_at' => Carbon::now()
+        ]);
 
         //eloquent ORM insert main way
-        $categoy = new Category;
-        $categoy->category_name = $request->category_name;
-        $categoy->user_id = Auth::user()->id;
-        $categoy->save();
+        // $categoy = new Category;
+        // $categoy->category_name = $request->category_name;
+        // $categoy->user_id = Auth::user()->id;
+        // $categoy->save();
 
         //Insert data with Query builder
         // $data = array();
