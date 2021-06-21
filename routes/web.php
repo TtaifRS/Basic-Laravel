@@ -46,6 +46,11 @@ Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand'
 
 Route::post('/brand/add', [BrandController::class, 'AddBrand'])->name('store.brand');
 
+Route::get('/brand/edit/{id}', [BrandController::class, "EditBrand"]);
+
+Route::post("/brand/update/{id}", [BrandController::class, 'UpdateBrand']);
+
+//authentication
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //eloquent ORM read users
     $users = User::all();

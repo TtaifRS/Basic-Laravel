@@ -51,4 +51,59 @@ class BrandController extends Controller
 
         return Redirect()->back()->with('success', 'Brand added successfully');
     }
+
+
+    public function EditBrand($id)
+    {
+        $brands = Brand::find($id);
+        return view('admin.brand.edit', compact("brands"));
+    }
+
+    public function UpdateBrand(Request $request, $id)
+    {
+        $validaedData = $request->validate(
+            [
+                'brand_name' => 'required|min:4',
+            ],
+            [
+                'brand_name.required' => 'Please Input Brand Name',
+                'brand_name.min' => "Brand Name longer then 4 Charecters"
+            ]
+
+        );
+
+        $old_image = $request->old_image;
+
+        $brand_image = $request->file('brand_image');
+
+        if ($brand_image) {
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($brand_image->getClientOriginalExtension());
+
+            $img_name = $name_gen . '.' . $img_ext;
+
+            $upload_location  = 'images/brand/';
+
+            $last_img = $upload_location . $img_name;
+
+            $brand_image->move($upload_location, $img_name);
+
+            unlink($old_image);
+
+            Brand::find($id)->update([
+                'brand_name' => $request->brand_name,
+                'brand_image' => $last_img,
+                'created_at' => Carbon::now(),
+            ]);
+
+
+            return Redirect()->back()->with('success', 'Brand Updated successfully');
+        } else {
+            Brand::find($id)->update([
+                'brand_name' => $request->brand_name,
+                'created_at' => Carbon::now(),
+            ]);
+            return Redirect()->back()->with('success', 'Brand Updated successfully');
+        }
+    }
 }
