@@ -38,7 +38,7 @@
                                     <tr>
                                         <th scope="row">{{ $brands->firstItem() + $loop->index }}</th>
                                         <td>{{ $brand->brand_name }}</td>
-                                        <td><img src="" alt=""></td>
+                                        <td><img src="{{asset($brand ->brand_image)}}" style="height: 40px; width: 50px" alt=""></td>
                                         <td>{{ $brand->created_at->diffForHumans() }}</td>
                                         {{-- Query builder --}}
                                         {{-- <td>{{Carbon\Carbon::parse($user->created_at)->diffForHumans()}}</td> --}}
@@ -61,7 +61,7 @@
                     <div class="card">
                         <div class="card-header">Add Brnad</div>
                         <div class="card-body">
-                            <form class="px-3" action="{{ route('store.category') }}" method="POST">
+                            <form class="px-3" action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1" class="form-label">Brand Name</label>
