@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MultiImageController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +52,13 @@ Route::get('/brand/edit/{id}', [BrandController::class, "EditBrand"]);
 Route::post("/brand/update/{id}", [BrandController::class, 'UpdateBrand']);
 
 Route::get("/brand/delete/{id}", [BrandController::class, 'DeleteBrand']);
+
+
+//multi image route 
+Route::get('/multi/image', [MultiImageController::class, 'MultiImage'])->name('multi.image');
+
+Route::post('/multiimg/add', [MultiImageController::class, 'StoreImage'])->name('store.image');
+
 
 //authentication
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
