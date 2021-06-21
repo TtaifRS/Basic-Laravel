@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function AllCat()
     {
         $categories = Category::latest()->paginate(5);
@@ -86,7 +91,7 @@ class CategoryController extends Controller
         return Redirect()->back()->with('success', 'Category Restored Successfully');
     }
 
-    
+
     public function PermanentDeleteCat($id)
     {
         $permanentDelete = Category::onlyTrashed()->find($id)->forceDelete();
