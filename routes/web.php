@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
@@ -37,6 +38,12 @@ Route::get("/category/softdelete/{id}", [CategoryController::class, 'SoftDeleteC
 Route::get('/category/restore/{id}', [CategoryController::class, 'RestoreCat']);
 
 Route::get('/category/permanentDelete/{id}', [CategoryController::class, 'PermanentDeleteCat']);
+
+
+
+//brand route
+Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //eloquent ORM read users
