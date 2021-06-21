@@ -50,6 +50,8 @@ Route::get('/brand/edit/{id}', [BrandController::class, "EditBrand"]);
 
 Route::post("/brand/update/{id}", [BrandController::class, 'UpdateBrand']);
 
+Route::get("/brand/delete/{id}", [BrandController::class, 'DeleteBrand']);
+
 //authentication
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //eloquent ORM read users
